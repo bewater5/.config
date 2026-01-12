@@ -8,8 +8,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
   git
-  zsh-autosuggestions
+  z
+  extract
+  sudo
+  history
   zsh-syntax-highlighting
+  zsh-autosuggestions
+  fzf
 )
 
 source $ZSH/oh-my-zsh.sh

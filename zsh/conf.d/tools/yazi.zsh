@@ -1,4 +1,4 @@
-yy() {
+y() {
   local tmp
   tmp="$(mktemp -t yazi-cwd.XXXXXX)"
 
