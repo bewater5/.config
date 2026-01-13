@@ -40,7 +40,7 @@ fzf_path_insert() {
   done
   
   # 搜索目录和文件，排除忽略列表中的目录
-  selected=$(find . "${find_args[@]}" \( -type d -o -type f \) -print 2>/dev/null | fzf)
+  selected=$(find . "${find_args[@]}" \( -type d -o -type f \) -print 2>/dev/null | fzf -i)
   
   # 如果选择了结果
   if [[ -n "$selected" ]]; then
@@ -93,7 +93,7 @@ bindkey '^X^E' edit-command-line-nvim
 
 # 调用已有的 y() 函数启动 yazi
 yazi_widget() {
-  y
+  yazi
   zle reset-prompt
 }
 
