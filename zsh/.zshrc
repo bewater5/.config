@@ -22,6 +22,7 @@ source "$ZSHCONFIG/conf.d/tools.zsh"
 source "$ZSHCONFIG/conf.d/aliases.zsh"
 source "$ZSHCONFIG/conf.d/functions.zsh"
 source "$ZSHCONFIG/conf.d/proxy.zsh"
+source "$ZSHCONFIG/conf.d/widgets.zsh"
 
 # Powerlevel10k 配置
 [[ ! -f "$ZSHCONFIG/conf.d/p10k.zsh" ]] || source "$ZSHCONFIG/conf.d/p10k.zsh"
