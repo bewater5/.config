@@ -9,6 +9,9 @@
 !kitty/
 !kitty/**
 
+!ghostty/
+!ghostty/**
+
 !tmux/
 !tmux/tmux.conf
 !tmux/tmux.conf.local
