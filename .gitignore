@@ -9,6 +9,11 @@
 !kitty/
 !kitty/**
 
-!.tmux.conf
+!tmux/
+!tmux/tmux.conf
+!tmux/tmux.conf.local
+
 !.vimrc
 !.gitignore
+
+*.un~
