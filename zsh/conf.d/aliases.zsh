@@ -11,3 +11,5 @@ alias f=fzf
 # 编辑器
 alias vi=nvim
 
+# QRCode 生成
+alias qr='qrcode-terminal'

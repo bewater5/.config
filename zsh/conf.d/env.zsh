@@ -7,8 +7,11 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # Kitty 终端配置
-export TERM=xterm-kitty
+export TERM=tmux-256color
 
 # 默认编辑器设置
 export EDITOR="nvim"
 export VISUAL="nvim"
+
+# 历史记录时间格式设置
+export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
