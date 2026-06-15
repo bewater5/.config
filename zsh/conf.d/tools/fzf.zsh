@@ -13,6 +13,6 @@ export FZF_DEFAULT_OPTS="
   --prompt='❯ '
   --pointer='➤'
   --marker='✔'
-  --color=bg:#1c1c1c,hl:#357bf0,fg+:#ffffff,hl+:#357bf0,prompt:#1c1c1c,spinner:#357bf0,pointer:#357bf0
+  --color=bg:-1,hl:#357bf0,fg+:#ffffff,hl+:#357bf0,prompt:#357bf0,spinner:#357bf0,pointer:#357bf0
 "
 
