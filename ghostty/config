@@ -3,8 +3,6 @@ font-family = Hack Nerd Font Mono
 font-size = 16
 adjust-cell-height = 30%
 
-# 背景：与 tmux 透明状态栏配套（tmux.conf.local 中的过渡色按 #1c1c1c 设计）
-# background = 1c1c1c
 background-opacity = 0.95
 background-blur-radius = 4
 
