@@ -271,7 +271,7 @@ tmux_conf_theme_right_separator_sub=''
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 #tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{pretty_pane_current_path} "
-tmux_conf_theme_status_right=" #{prefix}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},} , CPU #{cpu_fg_color}#{cpu_percentage}#[fg=#8a8a8a] #{cpu_icon} MEM #{ram_fg_color}#{ram_percentage}#[fg=#8a8a8a] #{ram_icon} | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},} , CPU #{cpu_fg_color}#{cpu_percentage}#[fg=#8a8a8a] #{cpu_icon} MEM #{ram_fg_color}#{ram_percentage}#[fg=#8a8a8a] #{ram_icon} |  #{username}#{root} | #{?#{!=:#{hostname_ssh},}, #{hostname_ssh}, #{hostname}} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -453,7 +453,7 @@ set -g status-justify left
 # @bg is used as the default background colour for the status line
 set -g @bg "#282C34"
 set -g status-style "fg=#8a8a8a,bg=#{@bg},none" #!important
-set -g status-left "#[fg=#080808]#[bg=#e5c07b]#[bold] ❐ #S A:#{session_attached} #[fg=#e5c07b]#[bg=#c678dd]#[none]#[fg=#e4e4e4] Pane-#P #[fg=#c678dd]#[bg=#303030]#[default]#[bg=#{@bg}]" #!important
+set -g status-left "#[fg=#080808]#[bg=#e5c07b]#[bold] ❐ #S ⚇ #{session_attached} #[fg=#e5c07b]#[bg=#c678dd]#[none]#[fg=#e4e4e4]  #P #[fg=#c678dd]#[bg=#303030]#[default]#[bg=#{@bg}]" #!important
 set -g window-status-separator "" #!important
 set -g window-status-format "#[fg=#8a8a8a]#[bg=#303030]#[none]#{?window_last_flag,#[fg=#0e73cc],} #I #W #{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,} #{?window_end_flag,#[fg=#303030]#[bg=#{@bg}],}#[default]#[bg=#{@bg}]" #!important
 # bg=default inside the format strings resolves to this style, so it must
