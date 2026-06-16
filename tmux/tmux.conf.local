@@ -414,6 +414,7 @@ set -g history-limit 10000
 set -g mouse on
 
 # vi copy mode
+bind-key -n C-s copy-mode
 set -g mode-keys vi
 bind -T copy-mode-vi v send -X begin-selection
 bind -T copy-mode-vi C-v send -X rectangle-toggle
