@@ -453,13 +453,13 @@ set -g status-justify left
 # @bg is used as the default background colour for the status line
 set -g @bg "#282C34"
 set -g status-style "fg=#8a8a8a,bg=#{@bg},none" #!important
-set -g status-left "#[fg=#080808]#[bg=#e5c07b]#[bold] ❐ #S ⚇ #{session_attached} #[fg=#e5c07b]#[bg=#c678dd]#[none]#[fg=#e4e4e4]  #P #[fg=#c678dd]#[bg=#303030]#[default]#[bg=#{@bg}]" #!important
+set -g status-left "#[fg=#080808]#[bg=#e5c07b]#[bold] ❐ #S ⚇ #{session_attached} #[fg=#e5c07b]#[bg=#c678dd]#[none]#[fg=#e4e4e4]  #P #W #[fg=#c678dd]#[bg=#303030]#[default]#[bg=#{@bg}]" #!important
 set -g window-status-separator "" #!important
-set -g window-status-format "#[fg=#8a8a8a]#[bg=#303030]#[none]#{?window_last_flag,#[fg=#0e73cc],} #I #W #{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,} #{?window_end_flag,#[fg=#303030]#[bg=#{@bg}],}#[default]#[bg=#{@bg}]" #!important
+set -g window-status-format "#[fg=#8a8a8a]#[bg=#303030]#[none]#{?window_last_flag,#[fg=#0e73cc],} #I #{b:pane_current_path} #{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,} #{?window_end_flag,#[fg=#303030]#[bg=#{@bg}],}#[default]#[bg=#{@bg}]" #!important
 # bg=default inside the format strings resolves to this style, so it must
 # stay default for the trailing arrow to land on the terminal background
 set -g window-status-current-style "fg=#e4e4e4,bg=default,bold" #!important
-set -g window-status-current-format "#[fg=#303030]#[bg=#0e73cc]#[fg=#e4e4e4]#[bg=#0e73cc]#[bold] #I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,} #{?window_end_flag,#[fg=#0e73cc]#[bg=#{@bg}],#[fg=#0e73cc]#[bg=#303030]}#[default]" #!important
+set -g window-status-current-format "#[fg=#303030]#[bg=#0e73cc]#[fg=#e4e4e4]#[bg=#0e73cc]#[bold] #I #{b:pane_current_path}#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,} #{?window_end_flag,#[fg=#0e73cc]#[bg=#{@bg}],#[fg=#0e73cc]#[bg=#303030]}#[default]" #!important
 
 # plugins (managed by tpm, auto-installed by Oh my tmux!)
 set -g @plugin 'jimeh/tmuxifier'
