@@ -1,17 +1,5 @@
+# 普通启动 yazi，不改变 shell 当前目录；落地逻辑见 widgets.zsh 的 ^Y
 y() {
-  local tmp
-  tmp="$(mktemp -t yazi-cwd.XXXXXX)"
-
-  yazi --cwd-file="$tmp"
-
-  if [[ -f "$tmp" ]]; then
-    local cwd
-    cwd="$(<"$tmp")"
-    rm -f "$tmp"
-
-    if [[ -d "$cwd" ]]; then
-      cd "$cwd"
-    fi
-  fi
+  yazi
 }
 
