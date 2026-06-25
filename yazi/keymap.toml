@@ -1,12 +1,6 @@
-[[mgr.prepend_keymap]]
-on   = "!"
-for  = "unix"
-run  = 'shell "$SHELL" --block'
-desc = "Open $SHELL here"
-
 # nvim
 [[mgr.prepend_keymap]]
-on   = "@"
+on   = "<c-e>"
 run  = 'shell "nvim" --block'
 desc = "Open nvim in current directory"
 
