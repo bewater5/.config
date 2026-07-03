@@ -563,3 +563,6 @@ tmux_conf_uninstall_plugins_on_reload=true
 # "$@"
 # # /!\ do not remove the previous line
 # #     do not write below this line
+
+# Disable kitty/CSI-u extended keys
+set -s extended-keys off
