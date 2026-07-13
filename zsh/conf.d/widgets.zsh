@@ -128,6 +128,6 @@ nvim_widget() {
 # 注册 widget
 zle -N nvim_widget
 
-# 绑定快捷键 Ctrl+E（覆盖默认的 end-of-line）
-bindkey '^E' nvim_widget
+# 绑定快捷键 Ctrl+N Ctrl+E
+bindkey '^N^E' nvim_widget
 
