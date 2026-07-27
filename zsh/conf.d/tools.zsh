@@ -11,5 +11,4 @@ TOOLS_DIR="${0:A:h}/tools"
 # 加载所有工具配置（如果存在）
 [[ -f "$TOOLS_DIR/fzf.zsh" ]] && source "$TOOLS_DIR/fzf.zsh"
 [[ -f "$TOOLS_DIR/nvm.zsh" ]] && source "$TOOLS_DIR/nvm.zsh"
-[[ -f "$TOOLS_DIR/bun.zsh" ]] && source "$TOOLS_DIR/bun.zsh"
 [[ -f "$TOOLS_DIR/yazi.zsh" ]] && source "$TOOLS_DIR/yazi.zsh"

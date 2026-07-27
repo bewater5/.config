@@ -16,6 +16,7 @@ set -o pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 OH_MY_ZSH_PATH="$HOME/.oh-my-zsh"
+OH_MY_TMUX_PATH="$HOME/.config/oh-my-tmux"
 ZSH_CUSTOM_PATH="${ZSH_CUSTOM:-$OH_MY_ZSH_PATH/custom}"
 NVM_VERSION="v0.40.1"   # 需要时可升级到更新的 tag
 
@@ -31,7 +32,45 @@ if [[ "$SCRIPT_DIR" != "$HOME/.config/zsh" ]]; then
   warn "Move the repo under ~/.config and re-run, otherwise conf.d/* won't be sourced at startup"
 fi
 
-# --- 0. Homebrew ----------------------------------------------------------
+# --- 0. Ubuntu/Debian 系统级依赖 ----------------------------------------
+# Oh My Tmux 的系统剪贴板集成需要 xclip（Wayland 使用 wl-clipboard）。
+ensure_apt_dependencies() {
+  [[ "$OS" == "Linux" ]] || return 0
+  command -v apt-get >/dev/null 2>&1 || return 0
+
+  local packages=(
+    ca-certificates
+    curl
+    git
+    tmux
+    unzip
+    wl-clipboard
+    xclip
+    zsh
+  )
+  local missing=()
+  local pkg
+
+  for pkg in "${packages[@]}"; do
+    if ! dpkg-query -W -f='${Status}' "$pkg" 2>/dev/null | grep -q "ok installed"; then
+      missing+=("$pkg")
+    fi
+  done
+
+  if (( ${#missing[@]} == 0 )); then
+    ok "Ubuntu/Debian system dependencies already installed"
+    return 0
+  fi
+
+  info "Installing Ubuntu/Debian system dependencies: ${missing[*]}"
+  sudo apt-get update \
+    && sudo apt-get install -y "${missing[@]}" \
+    || warn "APT dependency installation failed; install manually: ${missing[*]}"
+}
+
+ensure_apt_dependencies
+
+# --- 1. Homebrew ----------------------------------------------------------
 ensure_brew() {
   if command -v brew >/dev/null 2>&1; then return 0; fi
   if [[ "$OS" == "Darwin" ]]; then
@@ -55,7 +94,7 @@ brew_install() {
   brew install "$pkg" || warn "$pkg install failed, skipping"
 }
 
-# --- 1. CLI 工具（配置里实际用到的）-------------------------------------
+# --- 2. CLI 工具（配置里实际用到的）-------------------------------------
 #   zsh      默认 shell        fzf      Ctrl+R / Ctrl+T / f 别名
 #   neovim   EDITOR、vi 别名   lazygit  lg 别名
 #   fd       functions/widgets yazi     y 函数、文件管理
@@ -63,14 +102,6 @@ if ensure_brew; then
   for pkg in zsh git fzf neovim lazygit fd yazi; do
     brew_install "$pkg"
   done
-fi
-
-# --- 2. bun（装到 ~/.bun，对应 tools/bun.zsh）---------------------------
-if [[ -s "$HOME/.bun/bin/bun" ]]; then
-  ok "bun already installed"
-else
-  info "Installing bun ..."
-  curl -fsSL https://bun.sh/install | bash || warn "bun install failed, skipping"
 fi
 
 # --- 3. nvm（装到 ~/.nvm，对应 tools/nvm.zsh）---------------------------
@@ -100,7 +131,10 @@ clone_if_absent "$ZSH_CUSTOM_PATH/plugins/zsh-autosuggestions"     "https://gith
 clone_if_absent "$ZSH_CUSTOM_PATH/plugins/zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-syntax-highlighting.git"
 clone_if_absent "$ZSH_CUSTOM_PATH/themes/powerlevel10k"           "https://gitee.com/romkatv/powerlevel10k.git"
 
-# --- 5. 让 ~/.zshrc 指向本仓库入口（软链，改仓库即生效）-----------------
+# --- 5. Oh My Tmux（tmux/tmux.conf 的软链目标）--------------------------
+clone_if_absent "$OH_MY_TMUX_PATH" "https://github.com/gpakosz/.tmux.git"
+
+# --- 6. 让 ~/.zshrc 指向本仓库入口（软链，改仓库即生效）-----------------
 if [[ -e "$HOME/.zshrc" && ! -L "$HOME/.zshrc" ]]; then
   info "Backing up existing ~/.zshrc -> ~/.zshrc.orig"
   cp "$HOME/.zshrc" "$HOME/.zshrc.orig"
@@ -109,7 +143,7 @@ ln -sf "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
 ok "linked ~/.zshrc -> $SCRIPT_DIR/.zshrc"
 # p10k 配置在 conf.d/p10k.zsh，由 .zshrc 直接 source，无需另外拷贝
 
-# --- 6. 可选：qrcode-terminal（qr 别名用），需要 node -------------------
+# --- 7. 可选：qrcode-terminal（qr 别名用），需要 node -------------------
 if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
   export NVM_DIR="$HOME/.nvm"
   # shellcheck disable=SC1091
@@ -124,7 +158,7 @@ if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
   fi
 fi
 
-# --- 7. 把默认 shell 切到 zsh -------------------------------------------
+# --- 8. 把默认 shell 切到 zsh -------------------------------------------
 TARGET_ZSH="$(command -v zsh || true)"
 if [[ -n "$TARGET_ZSH" && "${SHELL:-}" != "$TARGET_ZSH" ]]; then
   if ! grep -qxF "$TARGET_ZSH" /etc/shells 2>/dev/null; then
