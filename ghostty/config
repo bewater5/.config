@@ -23,6 +23,9 @@ scrollback-limit = 100000
 # Shell
 command = /usr/bin/zsh
 
+# SSH：自动向远端安装 xterm-ghostty terminfo，失败时回退到 xterm-256color
+shell-integration-features = ssh-env,ssh-terminfo
+
 # 剪贴板
 clipboard-read = allow
 clipboard-write = allow
