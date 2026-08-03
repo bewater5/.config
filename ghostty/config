@@ -1,6 +1,6 @@
 # 字体
 font-family = Hack Nerd Font Mono
-font-size = 16
+font-size = 12
 adjust-cell-height = 30%
 
 background-opacity = 0.95
@@ -8,3 +8,23 @@ background-blur-radius = 4
 
 # tmux 的 Alt+hjkl 窗格切换依赖 Option 作为 Alt 发送
 macos-option-as-alt = true
+
+# 窗口
+window-padding-x = 8
+window-padding-y = 8
+
+# 光标
+cursor-style = block
+cursor-style-blink = false
+
+# 滚动
+scrollback-limit = 100000
+
+# Shell
+command = /usr/bin/zsh
+
+shell-integration-features = ssh-env
+
+# 剪贴板
+clipboard-read = allow
+clipboard-write = allow
