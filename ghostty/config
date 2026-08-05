@@ -21,7 +21,6 @@ cursor-style-blink = false
 scrollback-limit = 100000
 
 # Shell
-command = /usr/bin/zsh
 
 shell-integration-features = ssh-env
 
