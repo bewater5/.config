@@ -271,7 +271,10 @@ tmux_conf_theme_right_separator_sub=''
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 #tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{pretty_pane_current_path} "
-tmux_conf_theme_status_right=" #{prefix}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},} , HIST #{?#{e|>=:#{history_bytes},500000000},#[fg=#e06c75],#{?#{e|>=:#{history_bytes},100000000},#[fg=#e5c07b],#[fg=#98c379]}}#{e|/|f|1:#{history_bytes},1000000}MB#[fg=#8a8a8a] 󰋚 , CPU #{cpu_fg_color}#{cpu_percentage}#[fg=#8a8a8a] #{cpu_icon} MEM #{ram_fg_color}#{ram_percentage}#[fg=#8a8a8a] #{ram_icon} |  #{username}#{root} | #{?#{!=:#{hostname_ssh},}, #{hostname_ssh}, #{hostname}} "
+# macOS memory pressure is more useful than the raw RAM percentage, so only
+# display tmux-cpu's MEM segment on non-macOS hosts.
+if-shell 'test "$(uname -s)" = Darwin' 'set -g @show_mem 0' 'set -g @show_mem 1'
+tmux_conf_theme_status_right=" #{prefix}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},} , HIST #{?#{e|>=:#{history_bytes},500000000},#[fg=#e06c75],#{?#{e|>=:#{history_bytes},100000000},#[fg=#e5c07b],#[fg=#98c379]}}#{e|/|f|1:#{history_bytes},1000000}MB#[fg=#8a8a8a] 󰋚 , CPU #{cpu_fg_color}#{cpu_percentage}#[fg=#8a8a8a] #{cpu_icon}#{?@show_mem, MEM #{ram_fg_color}#{ram_percentage}#[fg=#8a8a8a] #{ram_icon},} |  #{username}#{root} | #{?#{!=:#{hostname_ssh},}, #{hostname_ssh}, #{hostname}} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
